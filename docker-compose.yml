@@ -1,0 +1,23 @@
+﻿version: '3.8'
+
+services:
+  scdi-db:
+    image: postgres:16-alpine
+    container_name: scdi_postgres_container
+    environment:
+      POSTGRES_USER: scdi_user
+      POSTGRES_PASSWORD: ScdiPassword123!
+      POSTGRES_DB: scdi_db
+    ports:
+      - "5433:5432" # <-- Mudamos aqui! O Windows vai acessar pela 5433
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - scdi-network
+
+volumes:
+  postgres_data:
+
+networks:
+  scdi-network:
+    driver: bridge

@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SCDI.API/SCDI.API.csproj" />
+    <Project Path="src/SCDI.Application/SCDI.Application.csproj" />
+    <Project Path="src/SCDI.Domain/SCDI.Domain.csproj" />
+    <Project Path="src/SCDI.Infrastructure/SCDI.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SCDI.UnitTests/SCDI.UnitTests.csproj" />
+  </Folder>
+</Solution>
