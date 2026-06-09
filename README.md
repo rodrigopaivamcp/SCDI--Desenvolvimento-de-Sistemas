@@ -59,4 +59,46 @@ dotnet ef database update --project src/SCDI.Infrastructure --startup-project sr
 > Aguarde o terminal compilar e exibir a palavra de sucesso Done. no final.
 
 #### Passo 3: Ligar a Web API Backend
-Para iniciar o servidor HTTP local da aplicação e expor os endpoints de negócio,
+Para iniciar o servidor HTTP local da aplicação e expor os endpoints de negócio, execute:
+dotnet run --project src/SCDI.API
+
+> Nota de Execução: Este terminal ficará ativamente "travado" segurando o servidor da API ligado. Não feche esta janela.
+
+---
+
+### Acessando a Interface do Swagger UI
+
+Com o terminal do Passo 3 ativo, abra o navegador de internet e acesse a interface interativa de testes através do endereço oficial abaixo:
+
+Endereço do Swagger: http://localhost:5096/swagger
+
+*(Adicione obrigatoriamente o sufixo /swagger ao final do link para renderizar a página corretamente).*
+
+---
+
+### Manual de Homologação e Teste dos Endpoints
+
+Dentro da interface do Swagger UI, os testes de requisições seguem o seguinte fluxo lógico:
+
+1. Autenticação: Realize uma chamada POST no endpoint /api/Auth/login o utilizando as credenciais padrão de homologação para receber o token simulado:
+   * Username: admin
+   * Password: admin123
+2. Operações de Insumos: Com o acesso validado, utilize os endpoints do InsumosController enviando payloads estruturados para inclusão, listagem, alteração e exclusão de itens de estoque no banco de dados.
+3. Validação de Domínio (DDD): Caso envie um payload com PrecoUnitario negativo (menor que zero) ou Nome vazio, a camada de domínio rejeitará a operação imediatamente, retornando um status 400 Bad Request com a mensagem de erro da exceção, provando a consistência das entidades de negócio.
+
+---
+
+### Executando os Testes Unitários de Forma Independente
+
+Caso deseje rodar a suíte de testes automatizados, abra um segundo terminal na raiz do projeto (mantendo a API ligada no terminal anterior) e execute:
+dotnet test
+
+---
+
+## Troubleshooting (Solução de Comportamentos do Ambiente)
+
+1. Divergência de Caminhos no Terminal: Caso ocorra o erro Unable to retrieve project metadata, certifique-se de que os comandos estão sendo digitados exatamente na raiz do repositório, mantendo os prefixos src/ indicados nos passos acima.
+2. Erro 404 ao Abrir a URL: A rota padrão raiz da API está protegida. É obrigatório adicionar o sufixo /swagger ao final do endereço no navegador para renderizar a interface visual.
+3. Persistência de Cache no Swagger UI: Em alguns navegadores, o formulário do Swagger pode reter valores digitados anteriormente na memória gráfica. Ao atualizar valores monetários, certifique-se de clicar em uma área vazia fora da caixa de texto antes de acionar o botão Execute para forçar a atualização do JSON bruto de envio.
+
+---
