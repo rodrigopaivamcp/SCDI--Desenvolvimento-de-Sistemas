@@ -4,7 +4,7 @@ O **SCDI** é uma Web API robusta desenvolvida em **.NET 8** utilizando os princ
 
 ---
 
-## 🛠️ Tecnologias e Ferramentas Utilizadas
+##  Tecnologias e Ferramentas Utilizadas
 
 * **Linguagem / Framework:** C# no ecossistema .NET 8.0
 * **Banco de Dados:** PostgreSQL (Relacional)
