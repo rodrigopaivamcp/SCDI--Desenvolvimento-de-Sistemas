@@ -38,11 +38,7 @@ Certifique-se de possuir instalado:
 ### 2. Subir o Banco de Dados (PostgreSQL)
 Navegue até a raiz do projeto (onde está o arquivo `docker-compose.yml`) e inicie o container isolado:
 ```bash
-docker-compose up -d
-
-
-
-### 4. Ligar a Web API Backend
-Para iniciar o servidor HTTP da aplicação backend e expor os endpoints, execute:
-```bash
+**docker-compose up -d**
+dotnet ef database update --project src/SCDI.Infrastructure --startup-project src/SCDI.API
 dotnet run --project src/SCDI.API
+dotnet test
