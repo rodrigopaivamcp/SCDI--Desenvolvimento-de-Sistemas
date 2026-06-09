@@ -40,10 +40,7 @@ Navegue até a raiz do projeto (onde está o arquivo `docker-compose.yml`) e ini
 ```bash
 docker-compose up -d
 
-### 3. incronizar as Tabelas (EF Migrations)
-Para aplicar as migrações estruturais e criar as tabelas dentro do banco PostgreSQL conteinerizado, execute:
-```bash
-dotnet ef database update --project src/SCDI.Infrastructure --startup-project src/SCDI.API
+
 
 ### 4. Ligar a Web API Backend
 Para iniciar o servidor HTTP da aplicação backend e expor os endpoints, execute:
