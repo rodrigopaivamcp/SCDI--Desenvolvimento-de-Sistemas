@@ -1,4 +1,4 @@
-# 📑 SCDI — Sistema de Controle de Disponibilidade de Insumos
+#  SCDI — Sistema de Controle de Disponibilidade de Insumos
 
 O **SCDI** é uma Web API backend de nível corporativo desenvolvida sobre a plataforma **.NET 8**. O sistema foi projetado especificamente para gerenciar o inventário, catalogação, precificação e auditoria automatizada de insumos industriais e comerciais. 
 
@@ -6,7 +6,7 @@ A aplicação foi construída seguindo os padrões da **Clean Architecture** (Ar
 
 ---
 
-## 🛠️ Tecnologias e Ecossistema
+##  Tecnologias e Ecossistema
 
 * **Ambiente de Execução / Linguagem:** .NET 8.0 (SDK) / C# 12
 * **Banco de Dados Relacional:** PostgreSQL 15 (Conteinerizado via Docker)
@@ -17,7 +17,7 @@ A aplicação foi construída seguindo os padrões da **Clean Architecture** (Ar
 
 ---
 
-## 🔍 Guia de Avaliação Direta pelo GitHub (Para o Professor)
+##  Guia de Avaliação Direta pelo GitHub (Para o Professor)
 
 Caro professor, caso opte por avaliar a estrutura diretamente por este repositório do GitHub (sem a necessidade de baixar ou rodar o código localmente), a arquitetura e os componentes estão organizados de forma transparente abaixo:
 
@@ -27,56 +27,56 @@ Caro professor, caso opte por avaliar a estrutura diretamente por este repositó
 * **Exposição dos Endpoints (API):** Acesse `src/SCDI.API/Controllers/InsumosController.cs` para validar os métodos REST (`GET`, `POST`, `PUT`, `DELETE`).
 * **Garantia de Qualidade:** Acesse `src/SCDI.UnitTests/Domain/InsumoTests.cs` para ver a suíte com os 4 testes automatizados xUnit que validam o comportamento do sistema.
 
-### 🐳 Como o Banco de Dados subiria no Docker:
+###  Como o Banco de Dados subiria no Docker:
 O arquivo `docker-compose.yml` na raiz está parametrizado para baixar uma imagem limpa do PostgreSQL 15 e expô-la na porta isolada `5433` (evitando conflitos locais), criando automaticamente a base de dados `scdi_management_db`.
 
-### 🚀 Evidências de Execução Local:
+###  Evidências de Execução Local:
 Os testes automatizados foram validados via CLI (`dotnet test`) apresentando 100% de sucesso (4 Passed, 0 Failed).
 
 ---
 
-## 🚀 Guia de Uso e Instruções de Inicialização (Para o Professor Rodar Localmente)
+##  Guia de Uso e Instruções de Inicialização (Para o Professor Rodar Localmente)
 
 Professor, para rodar este ecossistema na sua máquina e acessar a interface do Swagger com tudo na mais perfeita ordem, siga as instruções abaixo. 
 
-### ❗ Pré-requisito Obrigatório:
+###  Pré-requisito Obrigatório:
 Abra o seu terminal (Prompt de Comando, PowerShell ou Terminal do VS Code) **exatamente na raiz da pasta do projeto** (onde reside o arquivo `docker-compose.yml` e a pasta `src/`).
 
 ---
 
-### 🛠️ Passo a Passo para Execução:
+###  Passo a Passo para Execução:
 
 #### Passo 1: Inicializar a Infraestrutura de Banco de Dados (Docker)
 Para baixar a imagem oficial do PostgreSQL e iniciar o banco de dados rodando de forma isolada em segundo plano, execute:
 docker-compose up -d
 
-> ℹ️ O banco de dados estará ativo e ouvindo localmente através da porta configurada **5433**.
+>  O banco de dados estará ativo e ouvindo localmente através da porta configurada **5433**.
 
 #### Passo 2: Sincronizar a Estrutura do Banco (EF Migrations)
 Para transmitir e aplicar os scripts de criação de tabelas do Entity Framework para dentro do container Docker instalado no Passo 1, execute o comando:
 dotnet ef database update --project src/SCDI.Infrastructure --startup-project src/SCDI.API
 
-> ℹ️ Aguarde o terminal compilar e exibir a palavra de sucesso `Done.` no final.
+>  Aguarde o terminal compilar e exibir a palavra de sucesso `Done.` no final.
 
 #### Passo 3: Ligar a Web API Backend
 Para iniciar o servidor HTTP local da aplicação e expor os endpoints de negócio, execute:
 dotnet run --project src/SCDI.API
 
-> ⚠️ **Nota de Execução:** Este terminal ficará ativamente "travado" segurando o servidor da API ligado. **Não feche esta janela.**
+>  **Nota de Execução:** Este terminal ficará ativamente "travado" segurando o servidor da API ligado. **Não feche esta janela.**
 
 ---
 
-### 🌐 4. Acessando a Interface do Swagger UI
+###  4. Acessando a Interface do Swagger UI
 
 Com o terminal do **Passo 3** ativo, abra o seu navegador de internet e acesse a interface interativa de testes através do endereço oficial abaixo:
 
-👉 **Endereço do Swagger:** http://localhost:5096/swagger
+ **Endereço do Swagger:** http://localhost:5096/swagger
 
 *(Adicione obrigatoriamente o sufixo `/swagger` ao final do link para renderizar a página corretamente).*
 
 ---
 
-### 🔐 Manual de Homologação e Teste dos Endpoints
+###  Manual de Homologação e Teste dos Endpoints
 
 Dentro da interface do Swagger UI, você pode testar os fluxos lógicos do sistema seguindo estes passos:
 
@@ -88,14 +88,14 @@ Dentro da interface do Swagger UI, você pode testar os fluxos lógicos do siste
 
 ---
 
-### 🧪 5. Executando os Testes Unitários de Forma Independente
+###  5. Executando os Testes Unitários de Forma Independente
 
 Caso deseje rodar a suíte de testes automatizados, abra um **segundo terminal** na raiz do projeto (mantendo a API ligada no terminal anterior) e execute:
 dotnet test
 
 ---
 
-## 🧠 Troubleshooting (Solução de Comportamentos do Ambiente)
+##  Troubleshooting (Solução de Comportamentos do Ambiente)
 
 1. **Divergência de Caminhos no Terminal:** Caso ocorra o erro `Unable to retrieve project metadata`, certifique-se de que os comandos estão sendo digitados exatamente na raiz do repositório, mantendo os prefixos `src/` indicados nos passos acima.
 2. **Erro 404 ao Abrir a URL:** A rota padrão raiz da API está protegida. É obrigatório adicionar o sufixo `/swagger` ao final do endereço no navegador para renderizar a interface visual.
