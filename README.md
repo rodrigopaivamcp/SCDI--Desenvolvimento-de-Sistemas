@@ -70,7 +70,7 @@ dotnet run --project src/SCDI.API
 
 Com o terminal do Passo 3 ativo, abra o navegador de internet e acesse a interface interativa de testes através do endereço oficial abaixo:
 
-Endereço do Swagger: http://localhost:5096/swagger
+Endereço do Swagger: https://localhost:5096/swagger
 
 *(Adicione obrigatoriamente o sufixo /swagger ao final do link para renderizar a página corretamente).*
 
