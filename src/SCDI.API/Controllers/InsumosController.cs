@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SCDI.Domain.Entities;
-using SCDI.Infrastructure.Contexts;
+using SCDI.Infrastructure.Data; // <-- Ajustado para apontar para o lugar certo
 using System;
 using System.Threading.Tasks;
 

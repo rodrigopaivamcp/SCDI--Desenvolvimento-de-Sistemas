@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SCDI.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SCDI.Domain.Entities;
 using SCDI.Domain.Interfaces;
 using SCDI.Infrastructure.Data;
 
@@ -30,16 +33,16 @@ namespace SCDI.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Insumo insumo)
+        public void Update(Insumo insumo)
         {
             _context.Insumos.Update(insumo);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async Task DeleteAsync(Insumo insumo)
+        public void Delete(Insumo insumo)
         {
             _context.Insumos.Remove(insumo);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }

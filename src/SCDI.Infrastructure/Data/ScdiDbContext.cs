@@ -1,20 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SCDI.Domain;
-using SCDI.Infrastructure.Data.Mappings;
+using SCDI.Domain.Entities;
 
-namespace SCDI.Infrastructure.Data;
-
-public class ScdiDbContext : DbContext
+namespace SCDI.Infrastructure.Data
 {
-    public ScdiDbContext(DbContextOptions<ScdiDbContext> options) : base(options)
+    public class ScdiDbContext : DbContext
     {
-    }
+        public ScdiDbContext(DbContextOptions<ScdiDbContext> options) : base(options) { }
 
-    public DbSet<Insumo> Insumos { get; set; } = null!;
+        public DbSet<Insumo> Insumos { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfiguration(new InsumoConfiguration());
-        base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ScdiDbContext).Assembly);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

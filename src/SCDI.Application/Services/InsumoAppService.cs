@@ -1,4 +1,7 @@
-﻿using SCDI.Application.DTOs;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using SCDI.Domain.Entities;
 using SCDI.Domain.Interfaces;
 
 namespace SCDI.Application.Services
@@ -12,40 +15,39 @@ namespace SCDI.Application.Services
             _insumoRepository = insumoRepository;
         }
 
-        public async Task<InsumoDto> CriarInsumoAsync(CriarInsumoDto dto)
+        public async Task<IEnumerable<Insumo>> ListarTodosAsync()
         {
-            var insumo = new SCDI.Domain.Insumo(dto.Nome, "Geral", dto.PrecoUnitario);
-            await _insumoRepository.AddAsync(insumo);
-
-            return new InsumoDto(insumo.Id, insumo.Nome, dto.Quantidade, dto.PrecoUnitario, dto.LimiteMinimoAlerta, false);
+            return await _insumoRepository.GetAllAsync();
         }
 
-        public async Task<IEnumerable<InsumoDto>> ObterTodosAsync()
+        public async Task<Insumo> ObterPorIdAsync(Guid id)
         {
-            var insumos = await _insumoRepository.GetAllAsync();
-            return insumos.Select(insumo => new InsumoDto(insumo.Id, insumo.Nome, 10, 18.00m, 2, false));
+            return await _insumoRepository.GetByIdAsync(id);
         }
 
-        // --- NOVOS MÉTODOS DO CRUD ---
-        public async Task<bool> AtualizarInsumoAsync(Guid id, CriarInsumoDto dto)
+        public async Task CriarInsumoAsync(string nome, int quantidade, decimal precoUnitario, int limiteMinimoAlerta)
+        {
+            var novoInsumo = new Insumo(nome, quantidade, precoUnitario, limiteMinimoAlerta);
+            await _insumoRepository.AddAsync(novoInsumo);
+        }
+
+        public async Task AtualizarInsumoAsync(Guid id, string nome, int quantidade, decimal precoUnitario, int limiteMinimoAlerta)
+        {
+            var insumoExistente = await _insumoRepository.GetByIdAsync(id);
+            if (insumoExistente == null)
+                throw new Exception("Insumo não encontrado.");
+
+            insumoExistente.AtualizarDados(nome, quantidade, precoUnitario, limiteMinimoAlerta);
+            _insumoRepository.Update(insumoExistente);
+        }
+
+        public async Task DeletarInsumoAsync(Guid id)
         {
             var insumo = await _insumoRepository.GetByIdAsync(id);
-            if (insumo == null) return false;
+            if (insumo == null)
+                throw new Exception("Insumo não encontrado.");
 
-            // Altera os dados usando a regra do domínio
-            insumo.AtualizarPreco(dto.PrecoUnitario); 
-            // Como o set do Nome é privado, em cenários reais usaríamos um método, aqui simulamos a persistência direta:
-            await _insumoRepository.UpdateAsync(insumo);
-            return true;
-        }
-
-        public async Task<bool> DeletarInsumoAsync(Guid id)
-        {
-            var insumo = await _insumoRepository.GetByIdAsync(id);
-            if (insumo == null) return false;
-
-            await _insumoRepository.DeleteAsync(insumo);
-            return true;
+            _insumoRepository.Delete(insumo);
         }
     }
 }
