@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: ScdiPassword123!
       POSTGRES_DB: scdi_db
     ports:
-      - "5433:5432" # <-- Mudamos aqui! O Windows vai acessar pela 5433
+      - "5433:5432" 
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:

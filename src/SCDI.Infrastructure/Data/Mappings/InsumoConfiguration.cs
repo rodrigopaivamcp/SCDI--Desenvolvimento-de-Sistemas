@@ -1,27 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SCDI.Domain;
+using SCDI.Domain.Entities;
 
-namespace SCDI.Infrastructure.Data.Mappings
+namespace SCDI.Infrastructure.Configurations
 {
     public class InsumoConfiguration : IEntityTypeConfiguration<Insumo>
     {
         public void Configure(EntityTypeBuilder<Insumo> builder)
         {
-            builder.ToTable("Insumos");
-
             builder.HasKey(i => i.Id);
 
             builder.Property(i => i.Nome)
-                .IsRequired()
-                .HasMaxLength(150);
+                   .IsRequired()
+                   .HasMaxLength(150);
 
-            builder.Property(i => i.Categoria)
-                .HasMaxLength(100);
+            builder.Property(i => i.Quantidade)
+                   .IsRequired();
 
             builder.Property(i => i.PrecoUnitario)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
+                   .HasPrecision(18, 2);
+
+            builder.Property(i => i.LimiteMinimoAlerta)
+                   .IsRequired();
         }
     }
 }

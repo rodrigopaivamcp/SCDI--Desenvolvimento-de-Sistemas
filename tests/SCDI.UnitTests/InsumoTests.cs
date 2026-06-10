@@ -1,48 +1,39 @@
 ﻿using System;
+using SCDI.Domain.Entities;
 using Xunit;
-using SCDI.Domain;
 
-namespace SCDI.UnitTests
+namespace SCDI.UnitTests.Domain
 {
     public class InsumoTests
     {
         [Fact]
         public void CriarInsumo_ComDadosValidos_DeveInstanciarComSucesso()
         {
-            // Arrange & Act
-            var insumo = new Insumo("Barbecue", "Molhos", 18.00m);
-
-            // Assert
-            Assert.NotNull(insumo);
-            Assert.Equal("Barbecue", insumo.Nome);
-            Assert.Equal(18.00m, insumo.PrecoUnitario);
+            var insumo = new Insumo("Maionese", 10, 25.00m, 5);
+            Assert.NotEqual(Guid.Empty, insumo.Id);
+            Assert.Equal("Maionese", insumo.Nome);
+            Assert.Equal(10, insumo.Quantidade);
         }
 
         [Fact]
-        public void CriarInsumo_ComNomeVazio_DeveLancarExcecao()
+        public void CriarInsumo_ComNomeVazio_DeveLancarArgumentException()
         {
-            // Arrange, Act & Assert
-            Assert.Throws<ArgumentException>(() => new Insumo("", "Geral", 10.00m));
+            Assert.Throws<ArgumentException>(() => new Insumo("", 10, 25.00m, 5));
         }
 
         [Fact]
-        public void CriarInsumo_ComPrecoNegativo_DeveLancarExcecao()
+        public void CriarInsumo_ComPrecoNegativo_DeveLancarArgumentException()
         {
-            // Arrange, Act & Assert
-            Assert.Throws<ArgumentException>(() => new Insumo("Carne", "Geral", -5.00m));
+            Assert.Throws<ArgumentException>(() => new Insumo("Maionese", 10, -5.00m, 5));
         }
 
         [Fact]
-        public void AtualizarPreco_ComValorValido_DeveAlterarPreco()
+        public void AtualizarDados_ComValorValido_DeveAlterarDados()
         {
-            // Arrange
-            var insumo = new Insumo("Barbecue", "Molhos", 18.00m);
-
-            // Act
-            insumo.AtualizarPreco(22.50m);
-
-            // Assert
-            Assert.Equal(22.50m, insumo.PrecoUnitario);
+            var insumo = new Insumo("Maionese", 10, 25.00m, 5);
+            insumo.AtualizarDados("Maionese Gourmet", 15, 28.50m, 8);
+            Assert.Equal(28.50m, insumo.PrecoUnitario);
+            Assert.Equal(15, insumo.Quantidade);
         }
     }
 }
